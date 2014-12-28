@@ -45,3 +45,35 @@ Now, we know that process C would complete only when process A and B complete. S
 I found the second way efficient as process A and B could be executed independently of each other.
 
 Now coming to **JavaScript**, we know that **JavaScript** is a **synchronous** language. But it does facilitates **asynchronous behavior** which is through **callback** functions.
+
+Here is the following piece of code:
+
+```
+var orderNumber=0;
+function takeOrder(waiter, table, orderPlaced, callback) {
+    var order = function () {
+        orderNumber++;
+        console.log("I am " + waiter + ",customer at table number " + table + " has ordered " + orderPlaced + "!" + " This order number is " + orderNumber + ".");
+    };
+    callback(order);
+}
+takeOrder("Bill","2","Chicken Sandwich",function(printMessage){
+    console.log(printMessage());
+});
+takeOrder("Jill","8","Tomato Soup",function(printMessage){
+    console.log(printMessage());
+});
+```
+Let's see the above code line by line:
+
+We have initialized a variable orderNumber by '0', which is quite self explanatory.In the next line we have defined the function takeOrder with 'waiter' , 'table'  , 'orderPlaced' and 'callback' as its parameters.
+In the subsequent lines we have defined function 'order' which does two things:
+
+1. Increments the orderNumber for every order taken.
+2. Defines a message that needs to be printed, every time an order is taken.
+
+After defining the function order(), we have passed order as an argument to callback.
+
+Now, let's move on to the calling part:
+
+ We have called takeOrder() by passing arguments "Bill" which is the name of the waiter, "2" which is the table number, "Chicken Sandwich" is the order placed and in the last we have passed a function as as argument.
